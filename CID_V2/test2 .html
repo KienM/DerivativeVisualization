@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Slider - Snap to increments</title>
+  # this code attempts to plot two data sets using chart.js by adding in two datasets and inputting both data sets in the plotting region; real-time preview it to see it not work
+  # 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+  <script>
+  $( function() {
+	 var testvalue; // declare the variable testvalue as a global variable 
+	  // should be able to be called throughout
+
+	  $( "#slider" ).slider({
+      range: "min",
+	  step: 0.01,
+	  value: 0.01,
+	  min: 0.01,
+	  max: 1.00,
+      slide: function( event, ui ) {
+        //$( "#amount" ).val( ui.toFixed(2) );
+		
+		$( "#amount" ).val( ui.value.toFixed(2) );
+		testvalue = $( "#slider" ).slider( "value" ).toFixed(2); // ascribes testvalue a value 
+	  	console.log(testvalue);
+	  	
+      }
+    }); 
+    
+	 
+	  
+  } );
+  </script>
+</head>
+<body>
+ 
+<p>
+  <label for="amount">Value Amount:</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+ 
+<div id="slider"></div>
+
+<canvas id="myChart" width="300" height="300"></canvas>
+<script>
+
+	var ctx = document.getElementById("myChart");
+	var options = {};
+	
+	var data1 = {
+    labels : ["-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5"],
+    datasets: [
+        {
+            label: "y = x^2",
+            fill: false,
+            lineTension: 0.2,
+            data: [25, 16, 9, 4, 1, 0, testvalue, 4, 9, 16, 25], // call testvalue, which is global, into the dataset 
+			// i.e., calls the slider value into the dataset 
+			// dataset should change but still be plotted
+            spanGaps: false,
+		// this dataset approximates y = x^2
+		}
+    ]
+};
+
+
+	
+var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data1,
+	// plot the dataset
+});
+	// however, the dataset does not get plotted and the chart doesn't show up at all
+</script>
+
+</body>
+</html>
