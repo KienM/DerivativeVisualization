@@ -1,0 +1,53 @@
+<!DOCTYPE html> 
+<html> 
+ <head> 
+  <meta charset="UTF-7">
+  <title>Visually Intuiting Intuiting the Derivative </title>
+  <style> 
+   body { margin: 0; }
+   canvas {width: 100%; height: 100% }
+  </style> 
+
+<link rel="stylesheet" href="library/jquery-ui-1.12.1/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#slider" ).slider({
+      value:50,
+      min: 0,
+      max: 500,
+      step: 50,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" +--- ui.value );
+      }
+    });
+    $( "#amount" ).val( "$" +--- $( "#slider" ).slider( "value" ) );
+  } );
+  </script>
+
+
+
+ </head> 
+ <h1>Visually Intuiting the Derivative</h1>
+ <body> <p><b>First, what is the derivative?</b> It is the rate of change for a function. Visually, it is the slope of the line tangent to the curve - a rate of output with respect to its input. </p> 
+ <p><b>Second, why does it matter?</b> It matters, because in the world, things sprout and shrivel and change, and the rate at which this happens matters. Sometimes you&#39;ll be interested in how quickly, or sometimes how slowly something happens. Rates of change are important. </p> 
+ <p><b>Then how do we find the tangent line?</b> Recall that a tangent line touches something at only one point and that a secant line touches at two points. Let&#39;s try to visualize it.</p> 
+ <p>Consider the graph of <i>y = x&#178;2</i>.</p>
+ 
+ <p>Recall the definition of slope: a change in <i>y</i> over a change in <i>x</i>.</p>
+ 
+ <p>
+  <label for="amount">Change in x:</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+ 
+<div id="slider"></div>
+ 
+ </body>
+
+
+
+
+</html>
