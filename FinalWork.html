@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Visually Intuiting the Derivative</title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.8.0/math.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+    input[type=text] {
+      width: 300px;
+    }
+    input {
+      padding: 6px;
+    }
+    body, html, input {
+      font-family: sans-serif;
+      font-size: 11pt;
+
+    }
+    form {
+      margin: 20px ;
+    }
+  </style>
+</head>
+<h1>Visually Intuiting the Derivative</h1>
+ <body>
+ <p> In this lesson, we look to gain intuition into the concept of the derivative and what it means to take a derivative. </p>
+ <p><b>First, what is the derivative?</b> It is the rate of change for a function. Visually, it is the slope of the line tangent to the curve - a rate of output with respect to its input. </p> 
+ <p><b>Second, why do derivatives matter?</b> It matters, because in the world, things sprout and shrivel and change, and the rate at which this happens matters. You or someone else will be interested in how quickly or sometimes how slowly something happens. Rates of change are important. </p> 
+ <p><b>Then how do we find the tangent line?</b> Recall that a tangent line touches something at only one point and that a secant line touches at two points. Let&#39;s visualize it. </p> 
+ <p>Let&#39;s use the graph of <i>y = x&#178;</i>, in red, as an example. We&#39;ll find the derivative at <i>x = 1</i>:</p>
+ <p>In the box below, put a number between <i>0</i> and <i>1</i> in front of the term in parentheses.</p>
+	</body>
+
+<body>
+
+<p>
+  <label for="amount">Value Amount:</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+ 
+<div id="slider"></div>
+
+<div id="plot"></div>
+
+<p>Recall the definition of slope: a change in <i>y</i> over a change in <i>x</i>.</p>
+    
+    	<p> 
+    		At <i> x = 0.01</i>, the line is clearly secant; that is, it clearly passes through two points on the curve. You can see that it touches at two points. However, as you increase the value in front, towards <i> 1 </i>, you’ll see that the distance between the two points decreases. </p>
+		<p> 
+   			Setting the value in front to <i> 1 </i> is the exact value needed for tangent line at <i> x = 1 </i>. Give it a try. You can zoom in and see that it only touches at one point. </p> 
+    
+    	<p>
+    		So these secant lines approximate the tangent line, and they get pretty close to exact -- but not quite. For the exact value, the difference in <i>y</i> over difference in <i>x</i> is infinitely small, and it is denoted by <i>dy/dx</i>. Finding <i>dy/dx</i> involves taking a limit, which is the definition typically presented for the derivative. </p> 
+    	<p>	
+    		That is not, however, the point of this lesson; it is to have visual intuition behind what each value of the derivative means, and that is the slope of the line on any function. So, when you have to find a derivative, you are finding a generalize form for the values of the slope of the tangent line, which you find by taking a limit. The limit definition of the derivative finds the derivative for <i>any</i> change in <i>x</i>, in general form. And at each point, it would find the slope of the tangent line, like on the graph above. 
+    	</p>
+    
+    	<p>
+    		In addition, it is important to know that where the function is continuous, a tangent line exists, and therefore, the derivative exists. Moreover, it is important to know that the derivative of the function finds the slopes of these tangent lines and that it is <i>not</i> each line; rather, it is the slope of the line. 
+    	</p>
+    	
+    	<p>
+    	Looking back, this shows visually what the line whose slope is found and how that line is found.   
+    	</p>
+</body>
+
+<script>
+	var a = 0;
+
+	$( function() {
+    $( "#slider" ).slider({
+      range: "min",
+	  step: 0.01,
+	  value: 0.5,
+	  min: 0.01,
+	  max: 1.00,
+      slide: function( event, ui ) {
+		 $( "#amount" ).val(ui.value.toFixed(2));
+		 a = $( "#amount" ).val();
+		 draw(a);
+      }
+    });
+    
+	$( "#amount" ).val( $( "#slider" ).slider( "value" ).toFixed(2) );
+	//console.log( $( "#amount" ).val());	
+		
+  } );
+	
+  function draw(a) {
+  
+	 var eq = '1+(2x-2)*'+a;
+	 
+	  
+    try {
+      functionPlot({
+        target: '#plot',
+        data: [{
+          fn: eq,
+          sampler: 'builtIn',  
+          graphType: 'polyline'
+        },
+		{ fn: 'x*x'}
+			  ]
+      });
+    }
+    catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  }
+
+  document.getElementById('slider').onchange = function (event) {
+    event.preventDefault();
+  };
+
+  //draw();
+</script>
+
+
+</html>
